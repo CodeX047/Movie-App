@@ -1,6 +1,7 @@
 # Environment variables
 .env
 config.js
+.gitignore
 
 # Dependencies
 /node_modules
