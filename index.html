@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Search App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>Movie Search App</h1>
+        <div class="input-container">
+          <input
+            type="text"
+            id="movie-input"
+            placeholder="Enter movie name.."
+            aria-label="Movie name"
+          />
+          <button id="get-movie-btn">Get Info</button>
+        </div>
+      </header>
+
+      <main>
+        <section id="movie-info" class="hidden" aria-live="polite">
+          <div class="movie-card" aria-hidden="false">
+            <img
+              id="img"
+              src=""
+              alt="Movie poster"
+              loading="lazy"
+              decoding="async"
+              width="300"
+              height="450"
+            />
+          </div>
+
+          <div class="movie-meta">
+            <h2 id="show-movie-name"></h2>
+            <div class="meta-row">
+              <span id="movie-rating"></span>
+              <span id="year"></span>
+              <span id="genre"></span>
+            </div>
+            <p id="description" class="overview line"></p>
+            <div class="chips" id="genre-chips" aria-hidden="true"></div>
+          </div>
+        </section>
+      </main>
+
+      <p id="error-message" class="hidden" role="status" aria-live="assertive">
+        Movie not found. Please try again.
+      </p>
+      <div id="loader" class="hidden" aria-hidden="true"></div>
+    </div>
+
+    <script src="./config.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
