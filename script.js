@@ -76,4 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
     movieInfo.classList.add('hidden');
     movieInfo.classList.remove('visible');
   }
-})
+
+  // Add an event listener for the 'Enter' key on the input field
+  movieInput.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      movieBtn.click(); // Trigger the button click event
+    }
+  });
+});
