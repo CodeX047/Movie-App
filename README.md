@@ -2,6 +2,9 @@
 
 A small, client-side Movie Search app that queries the OMDb API and displays movie details. It uses plain HTML, CSS and JavaScript and is optimized for a modern, responsive UI.
 
+## See Live Demo
+[Movie Search App](https://movie-search-app-codex047.netlify.app/)
+
 ## Features
 
 - Search movies by title (OMDb API)
