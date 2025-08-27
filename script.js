@@ -13,8 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let errorMessage = document.getElementById("error-message"); // Error message display
   let loader = document.getElementById("loader"); // Loading spinner
 
-  const apiKEY = config.API_KEY;
-  const apiURL = config.API_URL;
 
   movieBtn.addEventListener('click', async () => {
     let movieName = movieInput.value.trim();
