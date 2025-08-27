@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   async function getMovieData(movieName) {
-    const url = `${apiURL}?t=${movieName}&apikey=${apiKEY}`;
+    const url = `/.netlify/functions/movie?t=${movieName}`;
 
     let response = await fetch(url);
     if (!response.ok) {
