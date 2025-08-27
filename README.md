@@ -1,69 +1,82 @@
 # Movie Search App
 
-A small, client-side Movie Search app that queries the OMDb API and displays movie details. It uses plain HTML, CSS and JavaScript and is optimized for a modern, responsive UI.
+A responsive movie search application that uses a serverless backend to securely query the OMDb API.
 
-## See Live Demo
-[Movie Search App](https://movie-search-app-codex047.netlify.app/)
+This project is built with plain HTML, CSS, and JavaScript for the frontend, and a Netlify Function (written in JavaScript) for the backend. This architecture ensures that the OMDb API key is never exposed to the client.
+
+## Live Demo
+
+[View the deployed application here](https://movie-search-app-codex047.netlify.app/)
 
 ## Features
 
-- Search movies by title (OMDb API)
-- Responsive, mobile-first UI with modern typography and color palette
-- Poster, title, rating, year, genre and plot
-- Lightweight: no build step or external frameworks
-- Basic accessibility improvements (ARIA live regions, focus states)
+-   **Secure API Requests**: Uses a Netlify serverless function to proxy requests to the OMDb API, keeping the API key safe.
+-   **Movie Details**: Search for movies by title and view details like the poster, plot, rating, year, and genre.
+-   **Responsive Design**: A clean, mobile-first interface that works on all screen sizes.
+-   **Dynamic UI**: Shows loading states and clear error messages.
+-   **Zero Dependencies**: Built with vanilla HTML, CSS, and JavaScript. No frameworks or build steps required for the frontend.
 
-## Project structure
+## Project Structure
 
-- `index.html` — app markup and semantic sections
-- `style.css` — modern responsive styles (variables, card/grid layout)
-- `script.js` — logic for fetching and rendering movie data
-- `config.js` — local configuration (API key and URL)
-- `placeholder.jpg` _(optional)_ — used when a movie poster is missing
-
-## Quick start
-
-1. Clone or copy the project folder.
-2. Create or update `config.js` in the project root with your OMDb API key.
-
-Example `config.js` (do not commit your real key to public repos):
-
-```javascript
-// config.js
-const config = {
-  API_KEY: "your_omdb_api_key",
-  API_URL: "https://www.omdbapi.com/",
-};
+```
+.
+├── index.html          # Main HTML file for the user interface
+├── style.css           # All styles for the application
+├── script.js           # Frontend logic for user interaction and API calls
+├── netlify/
+│   └── functions/
+│       └── movie.js    # Serverless function to fetch data from OMDb
+└── netlify.toml        # Netlify configuration file
 ```
 
-3. Start a simple static server from the project root and open the site in a browser.
+## How It Works
 
-Using Python (macOS / zsh):
+1.  The user enters a movie title in the frontend (`index.html`) and clicks the search button.
+2.  The frontend JavaScript (`script.js`) calls the Netlify serverless function at `/.netlify/functions/movie`, passing the movie title as a query parameter.
+3.  The `movie.js` serverless function receives the request, retrieves the `API_KEY` from Netlify's environment variables, and makes a secure request to the OMDb API.
+4.  The function returns the JSON response from the OMDb API to the frontend.
+5.  The frontend JavaScript parses the response and dynamically updates the DOM to display the movie information or an error message.
 
-```bash
-python3 -m http.server 8000
-```
+## Local Development
 
-Then open: http://localhost:8000
+To run this project locally, you will need the [Netlify CLI](https://docs.netlify.com/cli/get-started/).
 
-You can also open `index.html` directly in the browser for quick testing, but some browsers block fetches from file:// so a local server is recommended.
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/CodeX047/Movie-App
+    cd Movie-App
+    ```
 
-## How it works
+2.  **Get an OMDb API Key:**
+    You need a free API key from OMDb. You can get one at [omdbapi.com/apikey.aspx](http://www.omdbapi.com/apikey.aspx).
 
-- User enters a movie title and clicks "Get Info" (or presses Enter).
-- `script.js` requests movie data from the OMDb endpoint specified in `config.js`.
-- On success, the UI updates the poster, title, rating, year, genre, and description.
-- If the poster is missing, a placeholder image is used.
-- Loading and error states are shown with accessible `aria-live`/`role` hints.
+3.  **Set up Environment Variables:**
+    The Netlify CLI uses a `.env` file for local development. Create a file named `.env` in the root of your project and add your API key to it.
 
-## Accessibility
+    ```
+    API_KEY=your_omdb_api_key
+    ```
+    *Note: The `.gitignore` file is already configured to ignore `.env` files, so you won't accidentally commit your key.*
 
-- Search input has `aria-label`.
-- Results container and error messages use `aria-live` so assistive tech is informed of updates.
-- Buttons have clear focus styles.
+4.  **Run the development server:**
+    Use the Netlify CLI to start a local server that can run your frontend and the serverless function.
 
-## Troubleshooting
+    ```bash
+    netlify dev
+    ```
+    This will start a server, typically at `http://localhost:8888`.
 
-- If nothing appears after searching, ensure `config.js` contains a valid OMDb API key.
-- If fetch fails due to CORS or network, use the browser console to inspect the failing request.
-- Add `placeholder.jpg` in the project root if you want a local fallback poster.
+## Deployment
+
+This project is configured for easy deployment on [Netlify](https://www.netlify.com/).
+
+1.  **Push your code to a Git provider** (like GitHub, GitLab, or Bitbucket).
+
+2.  **Create a new site on Netlify** and link it to your repository. The build settings are already configured in `netlify.toml`.
+
+3.  **Set the `API_KEY` environment variable in the Netlify UI:**
+    -   Go to **Site settings > Build & deploy > Environment**.
+    -   Add a new environment variable:
+        -   **Key**: `API_KEY`
+        -   **Value**: `your_omdb_api_key`
+    -   Redeploy your site to apply the variable.
